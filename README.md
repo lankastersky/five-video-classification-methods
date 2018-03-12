@@ -10,7 +10,7 @@ Create next folders:
 Use UCF101 as nonads
 - see [here](https://github.com/harvitronix/five-video-classification-methods) how to prepare data
 Use Youtube-8M from vudoku as ads.
-- >2_extract_files.py
-- >extract_features.py
-- >train.py
-- >demo.py
+- `2_extract_files.py`
+- `extract_features.py`
+- `train.py`
+- `demo.py`
