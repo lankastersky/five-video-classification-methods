@@ -7,10 +7,15 @@ Create next folders:
 - data/train/nonads
 - data/test/ads
 - data/test/nonads
+
 Use UCF101 as nonads
 - see [here](https://github.com/harvitronix/five-video-classification-methods) how to prepare data
-Use Youtube-8M from vudoku as ads.
+
+Use Youtube-8M from vudoku as ads
 - `2_extract_files.py`
 - `extract_features.py`
 - `train.py`
 - `demo.py`
+
+Results:
+- val_loss: 0.2083, val_acc: 0.9398, loss: 0.2413 - acc: 0.9688
