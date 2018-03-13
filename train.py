@@ -86,11 +86,11 @@ def main():
     # model can be one of lstm, lrcn, mlp, conv_3d, c3d
     model = 'lstm'
     saved_model = None  # None or weights file
-    class_limit = None  # int, can be 1-101 or None
+    class_limit = 2 # int, can be 1-101 or None
     seq_length = 40
     load_to_memory = False  # pre-load the sequences into memory
     batch_size = 32
-    nb_epoch = 1000
+    nb_epoch = 10
 
     # Chose images or features and image shape based on network.
     if model in ['conv_3d', 'c3d', 'lrcn']:
