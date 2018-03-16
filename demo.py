@@ -34,9 +34,9 @@ def main():
     # model can be one of lstm, lrcn, mlp, conv_3d, c3d.
     model = 'lstm'
     # Must be a weights file.
-    saved_model = 'data/checkpoints/lstm-features.004-0.208.hdf5'
+    saved_model = 'data/checkpoints/lstm-features.026-0.437.hdf5'
     # Sequence length must match the length used during training.
-    seq_length = 40
+    seq_length = 80
     # Limit must match that used during training.
     class_limit = 2
 
@@ -46,7 +46,7 @@ def main():
     # It also must be part of the train/test data.
     # TODO Make this way more useful. It should take in the path to
     # an actual video file, extract frames, generate sequences, etc.
-    video_name = 'Bgi3ssNwxGs'  #  ads
+    video_name = 'Bgi3ssNwxGs' # ads
     #video_name = 'v_ApplyEyeMakeup_g01_c01' # nonads
 
     # Chose images or features and image shape based on network.

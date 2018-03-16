@@ -45,7 +45,10 @@ class ResearchModels():
         elif model == 'lstm':
             print("Loading LSTM model.")
             self.input_shape = (seq_length, features_length)
-            self.model = self.lstm()
+            if nb_classes != 2:
+                self.model = self.lstm()
+            else:
+                self.model = self.lstm_binary()
         elif model == 'lrcn':
             print("Loading CNN-LSTM model.")
             self.input_shape = (seq_length, 80, 80, 3)
@@ -68,7 +71,8 @@ class ResearchModels():
 
         # Now compile the network.
         optimizer = Adam(lr=1e-5, decay=1e-6)
-        self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
+        loss_func_name = 'binary_crossentropy' if nb_classes == 2 else 'categorical_crossentropy'
+        self.model.compile(loss=loss_func_name, optimizer=optimizer,
                            metrics=metrics)
 
         print(self.model.summary())
@@ -84,6 +88,20 @@ class ResearchModels():
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(self.nb_classes, activation='softmax'))
+
+        return model
+
+    def lstm_binary(self):
+        """Build a simple LSTM network. We pass the extracted features from
+        our CNN to this model predomenently."""
+        # Model.
+        model = Sequential()
+        model.add(LSTM(2048, return_sequences=False,
+                       input_shape=self.input_shape,
+                       dropout=0.5))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(1, activation='sigmoid'))
 
         return model
 

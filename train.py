@@ -51,8 +51,8 @@ def train(data_type, seq_length, model, saved_model=None,
         X_test, y_test = data.get_all_sequences_in_memory('test', data_type)
     else:
         # Get generators.
-        generator = data.frame_generator(batch_size, 'train', data_type)
-        val_generator = data.frame_generator(batch_size, 'test', data_type)
+        generator = data.frame_generator(batch_size, 'train', data_type, class_limit)
+        val_generator = data.frame_generator(batch_size, 'test', data_type, class_limit)
 
     # Get the model.
     rm = ResearchModels(len(data.classes), model, seq_length, saved_model)
@@ -87,10 +87,10 @@ def main():
     model = 'lstm'
     saved_model = None  # None or weights file
     class_limit = 2 # int, can be 1-101 or None
-    seq_length = 40
+    seq_length = 80
     load_to_memory = False  # pre-load the sequences into memory
     batch_size = 32
-    nb_epoch = 10
+    nb_epoch = 30
 
     # Chose images or features and image shape based on network.
     if model in ['conv_3d', 'c3d', 'lrcn']:

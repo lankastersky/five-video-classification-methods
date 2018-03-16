@@ -41,7 +41,7 @@ class DataSet():
         self.seq_length = seq_length
         self.class_limit = class_limit
         self.sequence_path = os.path.join('data', 'sequences')
-        self.max_frames = 3000  # max number of frames a video can have for us to use it
+        self.max_frames = 10000  # max number of frames a video can have for us to use it
 
         # Get the data.
         self.data = self.get_data()
@@ -149,7 +149,7 @@ class DataSet():
         return np.array(X), np.array(y)
 
     @threadsafe_generator
-    def frame_generator(self, batch_size, train_test, data_type):
+    def frame_generator(self, batch_size, train_test, data_type, nb_classes):
         """Return a generator that we can use to train on. There are
         a couple different things we can return:
 
@@ -188,7 +188,10 @@ class DataSet():
                         raise ValueError("Can't find sequence. Did you generate them?")
 
                 X.append(sequence)
-                y.append(self.get_class_one_hot(sample[1]))
+                if nb_classes == 2:
+                    y.append(self.classes.index(sample[1]))
+                else:
+                    y.append(self.get_class_one_hot(sample[1]))
 
             yield np.array(X), np.array(y)
 
