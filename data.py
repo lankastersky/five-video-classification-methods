@@ -149,7 +149,7 @@ class DataSet():
         return np.array(X), np.array(y)
 
     @threadsafe_generator
-    def frame_generator(self, batch_size, train_test, data_type, nb_classes):
+    def frame_generator(self, batch_size, train_test, data_type):
         """Return a generator that we can use to train on. There are
         a couple different things we can return:
 
@@ -188,7 +188,7 @@ class DataSet():
                         raise ValueError("Can't find sequence. Did you generate them?")
 
                 X.append(sequence)
-                if nb_classes == 2:
+                if self.class_limit == 2:
                     y.append(self.classes.index(sample[1]))
                 else:
                     y.append(self.get_class_one_hot(sample[1]))
@@ -268,6 +268,12 @@ class DataSet():
 
     def print_class_from_prediction(self, predictions, nb_to_return=5):
         """Given a prediction, print the top classes."""
+        if self.class_limit == 2:
+            class_prediction = self.classes[0] if predictions[0] < .5 \
+                else self.classes[1]
+            print("%s" % class_prediction)
+            return
+
         # Get the prediction for each label.
         label_predictions = {}
         for i, label in enumerate(self.classes):
