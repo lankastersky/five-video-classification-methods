@@ -18,4 +18,4 @@ Use Youtube-8M from vudoku as ads
 - `demo.py`
 
 Results:
-- val_loss: 0.2083, val_acc: 0.9398, loss: 0.2413 - acc: 0.9688
+- loss: 0.4179 - acc: 0.8594 - val_loss: 0.3393 - val_acc: 0.9617
